@@ -1,0 +1,13 @@
+﻿@inject IJSRuntime JS
+
+<DynamicComponent Type="@Type.GetType(component)"/>
+
+@code{
+    private string component = string.Empty;
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        component = await JS.InvokeAsync<string>("getProperty", "app", "component");
+        await base.SetParametersAsync(parameters);
+    }
+}
